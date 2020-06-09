@@ -1,8 +1,6 @@
 class CalculatorBrain {
   String inputText = "0";
   String resultText;
-  String input;
-  String result;
 
   int firstnum;
   int secondnum;
@@ -11,10 +9,9 @@ class CalculatorBrain {
   void addtoInputText(String buttonString) {
     if (buttonString == 'C') {
       inputText = "";
-    } else if (buttonString == '( )') {
-      inputText = '(' + inputText + ')';
-    } else if (inputText == '%') {
-      inputText = buttonString;
+      resultText = "";
+    } else if (buttonString == 'ANS') {
+      inputText = inputText + resultText;
     } else if (buttonString == '/' ||
         buttonString == '*' ||
         buttonString == '-' ||
@@ -35,8 +32,15 @@ class CalculatorBrain {
       inputText = '0';
     }
   }
-  void percentageToDecimal(){
-    return calculate(inputText)*.01;
+
+  String percentageToDecimal() {
+    String result = "";
+    try {
+      result = (int.parse(inputText) * .01).toString();
+    } catch (e) {
+      result = (int.parse(calculateAll()) * .01).toString();
+    }
+    return result;
   }
 
   String calculateAll() {
@@ -44,12 +48,6 @@ class CalculatorBrain {
   }
 
   final operators = {
-    // "+": add,
-    // "-": subtract,
-    // "*": multiply,
-    // "/": divide,
-    // "%": modulo
-
     "+": (a, b) => a + b,
     "-": (a, b) => a - b,
     "*": (a, b) => a * b,
@@ -63,7 +61,7 @@ class CalculatorBrain {
 
   calculate(String input) {
     if (!expression.hasMatch(input)) {
-      throw new Exception("Invalid Input");
+      return "Error";
     }
 
     var expr = input;
@@ -75,7 +73,7 @@ class CalculatorBrain {
       var left = num.parse(match[1]);
       var op = match[2];
       var right = num.parse(match[3]);
-
+      
       expr = expr.replaceAll(match[0], operators[op](left, right).toString());
     }
 

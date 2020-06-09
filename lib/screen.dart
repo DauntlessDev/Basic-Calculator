@@ -38,6 +38,7 @@ class _ScreenState extends State<Screen> {
                   padding: const EdgeInsets.only(right: 15.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       Text(
                         calculatorBrain.inputText.toString(),
@@ -47,18 +48,17 @@ class _ScreenState extends State<Screen> {
                             fontWeight: FontWeight.bold),
                       ),
                       Visibility(
-                        visible: calculatorBrain.resultText.toString() == 'null'
+                        visible: calculatorBrain.resultText.toString() == 'null' || 
+                        calculatorBrain.resultText.toString() == '='
                             ? false
                             : true,
-                        child: Align(
-                          child: Text(
-                            calculatorBrain.resultText.toString(),
-                            style: TextStyle(
-                                color: Colors.grey[600],
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.end,
-                          ),
+                        child: Text( '=' +
+                          calculatorBrain.resultText.toString(),
+                          style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.end,
                         ),
                       ),
                     ],
@@ -99,7 +99,7 @@ class _ScreenState extends State<Screen> {
                       buttonText: '%',
                       textStyle: kSymbolStyle,
                       onPressed: () => setState(() {
-                        calculatorBrain.addtoInputText('%');
+                        calculatorBrain.resultText = calculatorBrain.percentageToDecimal();
                       }),
                     ),
                     NumberButton(
@@ -194,10 +194,10 @@ class _ScreenState extends State<Screen> {
                       }),
                     ),
                     NumberButton(
-                      buttonText: '( )',
+                      buttonText: 'ANS',
                       textStyle: kSymbolStyle,
                       onPressed: () => setState(() {
-                        calculatorBrain.addtoInputText('( )');
+                        calculatorBrain.addtoInputText('ANS');
                       }),
                     ),
                     NumberButton(
@@ -217,8 +217,7 @@ class _ScreenState extends State<Screen> {
                     RoundButton(
                       onPressed: () => setState(() {
                         calculatorBrain.resultText =
-                            "=" + calculatorBrain.calculateAll();
-                        print(calculatorBrain.resultText);
+                             calculatorBrain.calculateAll();
                       }),
                     ),
                   ],
