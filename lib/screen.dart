@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'components/number_button.dart';
 import 'components/round_button.dart';
-import 'components/symbol_button.dart';
 
 CalculatorBrain calculatorBrain;
 
@@ -44,15 +43,23 @@ class _ScreenState extends State<Screen> {
                         calculatorBrain.inputText.toString(),
                         style: TextStyle(
                             color: kWhiteColor,
-                            fontSize: 60,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        '=0',
-                        style: TextStyle(
-                            color: Colors.grey[600],
                             fontSize: 45,
                             fontWeight: FontWeight.bold),
+                      ),
+                      Visibility(
+                        visible: calculatorBrain.resultText.toString() == 'null'
+                            ? false
+                            : true,
+                        child: Align(
+                          child: Text(
+                            calculatorBrain.resultText.toString(),
+                            style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -74,34 +81,146 @@ class _ScreenState extends State<Screen> {
                   mainAxisSpacing: 0,
                   crossAxisCount: 4,
                   children: <Widget>[
-                    SymbolButton('C'),
-                    SymbolButton('⌫'),
-                    SymbolButton('%'),
-                    SymbolButton('/'),
                     NumberButton(
-                      number: '7',
+                      buttonText: 'C',
+                      textStyle: kSymbolStyle,
+                      onPressed: () => setState(() {
+                        calculatorBrain.addtoInputText('C');
+                      }),
+                    ),
+                    NumberButton(
+                      buttonText: '⌫',
+                      textStyle: kSymbolStyle,
+                      onPressed: () => setState(() {
+                        calculatorBrain.delete();
+                      }),
+                    ),
+                    NumberButton(
+                      buttonText: '%',
+                      textStyle: kSymbolStyle,
+                      onPressed: () => setState(() {
+                        calculatorBrain.addtoInputText('%');
+                      }),
+                    ),
+                    NumberButton(
+                      buttonText: '/',
+                      textStyle: kSymbolStyle,
+                      onPressed: () => setState(() {
+                        calculatorBrain.addtoInputText('/');
+                      }),
+                    ),
+                    NumberButton(
+                      buttonText: '7',
+                      textStyle: kNumberStyle,
                       onPressed: () => setState(() {
                         calculatorBrain.addtoInputText('7');
                       }),
                     ),
-                    NumberButton(number: '8',
+                    NumberButton(
+                      buttonText: '8',
+                      textStyle: kNumberStyle,
                       onPressed: () => setState(() {
                         calculatorBrain.addtoInputText('8');
-                      }),),
-                    NumberButton(number: '9'),
-                    SymbolButton('*'),
-                    NumberButton(number: '4'),
-                    NumberButton(number: '5'),
-                    NumberButton(number: '6'),
-                    SymbolButton('-'),
-                    NumberButton(number: '1'),
-                    NumberButton(number: '2'),
-                    NumberButton(number: '3'),
-                    SymbolButton('+'),
-                    SymbolButton('( )'),
-                    NumberButton(number: '0'),
-                    NumberButton(number: '.'),
-                    RoundButton(),
+                      }),
+                    ),
+                    NumberButton(
+                      buttonText: '9',
+                      textStyle: kNumberStyle,
+                      onPressed: () => setState(() {
+                        calculatorBrain.addtoInputText('9');
+                      }),
+                    ),
+                    NumberButton(
+                      buttonText: '*',
+                      textStyle: kSymbolStyle,
+                      onPressed: () => setState(() {
+                        calculatorBrain.addtoInputText('*');
+                      }),
+                    ),
+                    NumberButton(
+                      buttonText: '4',
+                      textStyle: kNumberStyle,
+                      onPressed: () => setState(() {
+                        calculatorBrain.addtoInputText('4');
+                      }),
+                    ),
+                    NumberButton(
+                      buttonText: '5',
+                      textStyle: kNumberStyle,
+                      onPressed: () => setState(() {
+                        calculatorBrain.addtoInputText('5');
+                      }),
+                    ),
+                    NumberButton(
+                      buttonText: '6',
+                      textStyle: kNumberStyle,
+                      onPressed: () => setState(() {
+                        calculatorBrain.addtoInputText('6');
+                      }),
+                    ),
+                    NumberButton(
+                      buttonText: '-',
+                      textStyle: kSymbolStyle,
+                      onPressed: () => setState(() {
+                        calculatorBrain.addtoInputText('-');
+                      }),
+                    ),
+                    NumberButton(
+                      buttonText: '1',
+                      textStyle: kNumberStyle,
+                      onPressed: () => setState(() {
+                        calculatorBrain.addtoInputText('1');
+                      }),
+                    ),
+                    NumberButton(
+                      buttonText: '2',
+                      textStyle: kNumberStyle,
+                      onPressed: () => setState(() {
+                        calculatorBrain.addtoInputText('2');
+                      }),
+                    ),
+                    NumberButton(
+                      buttonText: '3',
+                      textStyle: kNumberStyle,
+                      onPressed: () => setState(() {
+                        calculatorBrain.addtoInputText('3');
+                      }),
+                    ),
+                    NumberButton(
+                      buttonText: '+',
+                      textStyle: kSymbolStyle,
+                      onPressed: () => setState(() {
+                        calculatorBrain.addtoInputText('+');
+                      }),
+                    ),
+                    NumberButton(
+                      buttonText: '( )',
+                      textStyle: kSymbolStyle,
+                      onPressed: () => setState(() {
+                        calculatorBrain.addtoInputText('( )');
+                      }),
+                    ),
+                    NumberButton(
+                      buttonText: '0',
+                      textStyle: kNumberStyle,
+                      onPressed: () => setState(() {
+                        calculatorBrain.addtoInputText('0');
+                      }),
+                    ),
+                    NumberButton(
+                      buttonText: '.',
+                      textStyle: kNumberStyle,
+                      onPressed: () => setState(() {
+                        calculatorBrain.addtoInputText('.');
+                      }),
+                    ),
+                    RoundButton(
+                      onPressed: () => setState(() {
+                        calculatorBrain.resultText =
+                            "=" + calculatorBrain.calculateAll();
+                        print(calculatorBrain.resultText);
+                      }),
+                    ),
                   ],
                 ),
               ),

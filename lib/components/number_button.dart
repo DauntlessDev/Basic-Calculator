@@ -1,12 +1,10 @@
-
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-
 class NumberButton extends StatelessWidget {
-  NumberButton({this.number, this.onPressed});
+  NumberButton({this.buttonText, this.textStyle, this.onPressed});
   final Function onPressed;
-  final String number;
+  final String buttonText;
+  final TextStyle textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +12,7 @@ class NumberButton extends StatelessWidget {
       onPressed: this.onPressed,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(
-          this.number.toString(),
-          style: TextStyle(
-              color: kWhiteColor, fontSize: 28, fontWeight: FontWeight.bold),
-        ),
+        child: Text(this.buttonText, style: this.textStyle),
       ),
     );
   }
