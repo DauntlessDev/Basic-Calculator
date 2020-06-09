@@ -1,4 +1,4 @@
-# calculator
+# Basic Calculator :D 
 
 Basic computing app with own UI design.
 
